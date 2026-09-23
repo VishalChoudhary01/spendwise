@@ -10,6 +10,10 @@
 !.yarn/releases
 !.yarn/versions
 
+# markdown files
+*.md
+!README.md
+
 # testing
 /coverage
 
