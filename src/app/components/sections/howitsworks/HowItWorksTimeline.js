@@ -3,6 +3,8 @@
 import { motion } from "motion/react";
 import { FiCheck } from "react-icons/fi";
 
+import { EASE } from "@/app/lib/motion/easings";
+
 export default function HowItWorksTimeline({
     stages,
     activeStage,
@@ -90,7 +92,7 @@ function TimelineItem({
                 }}
                 transition={{
                     duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: EASE.standard,
                 }}
                 className={[
                     "relative z-10",

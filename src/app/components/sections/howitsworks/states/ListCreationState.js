@@ -1,23 +1,32 @@
 "use client";
 
-import { FiArrowRight, FiPlus } from "react-icons/fi";
+import {
+    FiArrowRight,
+    FiPlus,
+} from "react-icons/fi";
 
 export default function ListCreationState() {
     return (
-        <div>
+        <div className="w-full">
+            {/* Label */}
+
             <p
                 className="
-                    text-[11px]
+                    text-[10px]
                     font-semibold
                     uppercase
-                    tracking-[0.14em]
+                    tracking-[0.16em]
                     text-foreground-muted
                 "
             >
                 New shopping list
             </p>
 
+            {/* List content */}
+
             <div className="mt-3 space-y-2">
+                {/* Existing list */}
+
                 <div
                     className="
                         flex
@@ -31,14 +40,30 @@ export default function ListCreationState() {
                         py-2.5
                     "
                 >
-                    <span className="text-sm font-medium text-foreground">
+                    <span
+                        className="
+                            min-w-0
+                            truncate
+                            text-sm
+                            font-medium
+                            text-foreground
+                        "
+                    >
                         Home Office Setup
                     </span>
 
-                    <span className="text-xs text-foreground-muted">
+                    <span
+                        className="
+                            shrink-0
+                            text-xs
+                            text-foreground-muted
+                        "
+                    >
                         4 items
                     </span>
                 </div>
+
+                {/* Add product */}
 
                 <div
                     className="
@@ -55,30 +80,51 @@ export default function ListCreationState() {
                         text-foreground-muted
                     "
                 >
-                    <FiPlus size={14} />
-                    Add product
+                    <FiPlus
+                        size={14}
+                        className="shrink-0"
+                    />
+
+                    <span>
+                        Add product
+                    </span>
                 </div>
             </div>
+
+            {/* Dashboard-style action */}
 
             <div
                 className="
                     mt-3
                     flex
+                    h-11
+                    w-full
                     items-center
                     justify-center
                     gap-2
                     rounded-md
                     bg-action
-                    px-3.5
-                    py-2.5
+                    px-4
                     text-sm
                     font-semibold
                     text-white
+                    transition-[transform,background-color]
+                    duration-200
+                    ease-out
                 "
             >
-                Create list
+                <span>
+                    Create list
+                </span>
 
-                <FiArrowRight size={14} />
+                <FiArrowRight
+                    size={14}
+                    className="
+                        transition-transform
+                        duration-200
+                        group-hover:translate-x-0.5
+                    "
+                />
             </div>
         </div>
     );

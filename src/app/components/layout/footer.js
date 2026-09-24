@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from "react";
 import { FaGithub, FaLinkedinIn} from "react-icons/fa6";
 import FooterAmbient from "@/app/components/layout/FooterAmbient";
+import Container from "./container";
 import Logo from "../common/logo";
 import Link from "next/link";
 
@@ -162,7 +163,7 @@ export default function Footer() {
                 onSettled={handleAmbientSettled}
             />
 
-            <div className=" relative z-10 mx-auto w-full max-w-6xl px-4 pt-12 pb-6 sm:px-6 sm:pt-16 sm:pb-8 lg:px-8 lg:pt-20 lg:pb-10 " >
+            <Container className="relative z-10 pt-12 pb-6 sm:pt-16 sm:pb-8 lg:pt-20 lg:pb-10">
                 <div key={jumpKey} ref={panelRef} className=" rounded-2xl border border-border bg-surface/30 p-5 backdrop-blur-md dark:bg-surface/20 sm:p-8 lg:p-10 xl:p-12 footer-jump " >
                     {/*
                      * Desktop:
@@ -277,7 +278,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </Container>
         </footer>
     );
 }

@@ -7,12 +7,7 @@ import {
 
 import { FiPlus } from "react-icons/fi";
 
-const EASE_OUT = [
-    0.22,
-    1,
-    0.36,
-    1,
-];
+import { TRANSITION } from "@/app/lib/motion/transitions";
 
 export default function FAQItem({
     id,
@@ -120,10 +115,7 @@ export default function FAQItem({
                             height: 0,
                             opacity: 0,
                         }}
-                        transition={{
-                            duration: 0.3,
-                            ease: EASE_OUT,
-                        }}
+                        transition={TRANSITION.fast}
                         className="overflow-hidden"
                     >
                         <p

@@ -2,7 +2,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ! SmartShop global design system */
+/* ! Spendwise global design system */
 
 /* ! Root tokens */
 :root {
@@ -780,7 +780,7 @@ select:focus-visible {
 }
 
 .footer-jump {
-  animation: footer-jump 450ms cubic-bezier(0.22, 1, 0.36, 1) 1;
+  animation: footer-jump 450ms var(--ease-out) 1;
 }
 
 /* ? Typography

@@ -3,6 +3,10 @@
 import { useEffect, useMemo, useRef, useState, } from "react";
 import { useInView } from "motion/react";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
+import {
+  MOBILE_QUERY,
+  REDUCED_MOTION_QUERY,
+} from "@/app/constants/mediaQueries";
 import { FiShoppingBag, FiTag, } from "react-icons/fi";
 
 const DESKTOP_ITEMS = [
@@ -90,10 +94,8 @@ export default function FooterAmbient({
 
   const [fragments, setFragments] = useState([]);
 
-  const isMobile = useMediaQuery("(max-width: 1023px)");
-  const reducedMotion = useMediaQuery(
-    "(prefers-reduced-motion: reduce)"
-  );
+  const isMobile = useMediaQuery(MOBILE_QUERY);
+  const reducedMotion = useMediaQuery(REDUCED_MOTION_QUERY);
 
   const footerInView = useInView(footerRef, {
     once: true,

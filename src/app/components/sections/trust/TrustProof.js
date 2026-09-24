@@ -1,16 +1,19 @@
 "use client";
 
-import {
-    motion,
-    useInView,
-} from "motion/react";
+import { useInView } from "motion/react";
 
 import { useRef } from "react";
 
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 
+import {
+    MOBILE_QUERY,
+    REDUCED_MOTION_QUERY,
+} from "@/app/constants/mediaQueries";
+
 import Eyebrow from "../../common/Eyebrow";
 import SectionHeading from "../../common/SectionHeading";
+import Container from "@/app/components/layout/container";
 
 import TrustMetric from "./TrustMetric";
 import TrustQuote from "./TrustQuote";
@@ -36,13 +39,6 @@ const METRICS = [
     },
 ];
 
-const EASE_OUT = [
-    0.22,
-    1,
-    0.36,
-    1,
-];
-
 export default function TrustProof() {
     /*
      * ------------------------------------------------------------
@@ -53,12 +49,10 @@ export default function TrustProof() {
      * No duplicated media-query constants.
      */
 
-    const isMobile = useMediaQuery(
-        "(max-width: 1023px)"
-    );
+    const isMobile = useMediaQuery(MOBILE_QUERY);
 
     const reducedMotion = useMediaQuery(
-        "(prefers-reduced-motion: reduce)"
+        REDUCED_MOTION_QUERY
     );
 
     const isStatic =
@@ -72,13 +66,10 @@ export default function TrustProof() {
 
     const sectionRef = useRef(null);
 
-    const inView = useInView(
-        sectionRef,
-        {
-            once: true,
-            margin: "-80px",
-        }
-    );
+    const inView = useInView(sectionRef, {
+        once: true,
+        margin: "-80px",
+    });
 
     /*
      * Mobile / reduced-motion:
@@ -93,54 +84,22 @@ export default function TrustProof() {
 
     return (
         <section
+            ref={sectionRef}
             id="trust"
             className="
                 relative
                 w-full
                 border-y
                 border-border/70
-                bg-[#F1F6F4]
-                dark:bg-[#101B18]
+                bg-background-secondary
             "
         >
-            <motion.div
-                ref={sectionRef}
-                initial={{
-                    opacity: 0,
-                    y: 12,
-                }}
-                whileInView={{
-                    opacity: 1,
-                    y: 0,
-                }}
-                viewport={{
-                    once: true,
-                    margin: "-80px",
-                }}
-                transition={{
-                    duration: 0.6,
-                    ease: EASE_OUT,
-                }}
-                className="
-                    mx-auto
-                    grid
-                    w-full
-                    max-w-7xl
-                    gap-10
-                    px-6
-                    py-16
-                    sm:py-24
-                    lg:grid-cols-[1fr_1.15fr]
-                    lg:items-center
-                    lg:gap-20
-                    lg:py-28
-                "
-            >
+            <Container className="grid gap-10 py-16 sm:py-24 lg:py-32 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-20">
                 {/* =================================================
                     LEFT
                 ================================================= */}
 
-                <div className="max-w-xl">
+                <div className="max-w-2xl">
                     {/* Eyebrow */}
 
                     <Eyebrow
@@ -153,17 +112,17 @@ export default function TrustProof() {
                     <SectionHeading
                         align="left"
                         size="md"
-                        maxWidth="max-w-xl"
+                        maxWidth="max-w-2xl"
                         description="
                             Real numbers from a growing community
-                            of shoppers using SmartShop to organize,
+                            of shoppers using Spendwise to organize,
                             compare, and save.
                         "
                     >
                         A smarter way to shop,
-                        <br />
+                        <br className="hidden sm:inline" />
                         already making a{" "}
-                        <span className="text-accent">
+                        <span className="text-accent dark:text-darkBrandTeal">
                             difference.
                         </span>
                     </SectionHeading>
@@ -214,7 +173,7 @@ export default function TrustProof() {
 
                     <TrustQuote />
                 </div>
-            </motion.div>
+            </Container>
         </section>
     );
 }

@@ -2,8 +2,10 @@
 
 import Eyebrow from "../../common/Eyebrow";
 import SectionHeading from "../../common/SectionHeading";
+import Reveal from "../../common/motion/Reveal";
 
 import PlanCard from "./PlanCard";
+import Container from "@/app/components/layout/container";
 
 /* ================================================================
    PLANS
@@ -26,14 +28,13 @@ const PLANS = [
             "Expense & savings overview",
         ],
 
-        detail:
-            "No credit card required.",
+        detail: "No credit card required.",
 
         preferred: false,
     },
 
     {
-        name: "SmartShop Plus",
+        name: "Spendwise Plus",
         price: "Coming soon",
 
         billing:
@@ -42,7 +43,7 @@ const PLANS = [
         positioning:
             "For deeper insights and more ways to shop better.",
 
-        cta: "Get started",
+        cta: "Get Started",
 
         differences: [
             "Everything in Free",
@@ -50,8 +51,7 @@ const PLANS = [
             "Priority product features",
         ],
 
-        detail:
-            "Early access first.",
+        detail: "Early access first.",
 
         preferred: true,
     },
@@ -69,96 +69,100 @@ export default function Pricing() {
                 relative
                 w-full
                 bg-background
-                px-6
                 py-16
                 dark:bg-darkBackground
                 sm:py-24
                 lg:py-32
             "
         >
-            <div
-                className="
-                    mx-auto
-                    w-full
-                    max-w-7xl
-                "
-            >
-                {/* =================================================
-                    SECTION HEADER
-                ================================================= */}
+            <Container>
+                <div className="mx-auto w-full max-w-6xl">
 
-                <div className="max-w-2xl">
-                    {/* ---------------------------------------------
-                        EYEBROW
+                    {/* =================================================
+                        SECTION HEADER
+                    ================================================= */}
 
-                        Shared project component.
-                    --------------------------------------------- */}
+                    <div className="max-w-2xl">
+                        <Eyebrow
+                            label="Pricing"
+                            className="mb-3"
+                        />
 
-                    <Eyebrow
-                        label="Pricing"
-                        className="mb-3"
-                    />
+                        <Reveal>
+                            <SectionHeading
+                                align="left"
+                                size="md"
+                                maxWidth="max-w-2xl"
+                                description="
+                                    Everything you need to organise purchases
+                                    and compare supported prices.
+                                "
+                            >
+                                Start with a{" "}
+                                <span className="text-accent dark:text-darkBrandTeal">
+                                    smarter
+                                </span>{" "}
+                                shopping habit.
+                            </SectionHeading>
+                        </Reveal>
+                    </div>
 
-                    {/* ---------------------------------------------
-                        SECTION HEADING
+                    {/* =================================================
+                        PLANS
+                    ================================================= */}
 
-                        Shared project component.
-                    --------------------------------------------- */}
-
-                    <SectionHeading
-                        align="left"
-                        size="md"
-                        maxWidth="max-w-2xl"
-                        description="
-                            Everything you need to organise purchases
-                            and compare supported prices.
+                    <div
+                        className="
+                            mx-auto
+                            mt-10
+                            grid
+                            w-full
+                            max-w-[350px]
+                            gap-5
+                            sm:gap-7
+                            md:max-w-none
+                            md:grid-cols-2
                         "
                     >
-                        Start with a{" "}
-                        <span className="text-accent">
-                            smarter
-                        </span>{" "}
-                        shopping habit.
-                    </SectionHeading>
-                </div>
-
-                {/* =================================================
-                    PLANS
-                ================================================= */}
-
-                <div
-                    className="
-                        mt-10
-                        grid
-                        gap-5
-                        md:grid-cols-2
-                    "
-                >
-                    {PLANS.map(
-                        (plan) => (
-                            <PlanCard
+                        {PLANS.map((plan, index) => (
+                            <Reveal
                                 key={plan.name}
-                                plan={plan}
-                            />
-                        )
-                    )}
+                                delay={0.08 + index * 0.08}
+                            >
+                                <PlanCard plan={plan} />
+                            </Reveal>
+                        ))}
+                    </div>
+
+                    {/* =================================================
+                        REASSURANCE
+                    ================================================= */}
+
+                    <div
+                        className="
+                            mx-auto
+                            mt-8
+                            w-full
+                            max-w-[350px]
+                            border-t
+                            border-border/60
+                            pt-5
+                            md:max-w-none
+                        "
+                    >
+                        <p
+                            className="
+                                text-sm
+                                text-foreground-muted
+                            "
+                        >
+                            Free to start. No credit
+                            card required.
+                        </p>
+                    </div>
+
                 </div>
-
-                {/* =================================================
-                    REASSURANCE
-                ================================================= */}
-
-                <p
-                    className="
-                        mt-6
-                        text-sm
-                        text-foreground-muted
-                    "
-                >
-                    Free to start. No credit
-                    card required.
-                </p>
-            </div>
+            </Container>
         </section>
     );
 }

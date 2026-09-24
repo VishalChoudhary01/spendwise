@@ -7,6 +7,8 @@ import {
 } from "motion/react";
 import { useRef } from "react";
 
+import { TRANSITION } from "@/app/lib/motion/transitions";
+
 const ALIGNMENT_CLASSES = {
     left: "items-start text-left",
     center: "items-center text-center",
@@ -18,8 +20,6 @@ const HEADING_SIZES = {
     md: "text-4xl md:text-5xl",
     lg: "text-5xl md:text-6xl lg:text-7xl",
 };
-
-const easeOut = [0.22, 1, 0.36, 1];
 
 export default function SectionHeading({
     as: HeadingTag = "h2",
@@ -45,7 +45,8 @@ export default function SectionHeading({
     const headingRef = useRef(null);
 
     const inView = useInView(headingRef, {
-        // once: true,
+        // Reveal once, then settle — no re-animation on scroll-back (§32, §46).
+        once: true,
         amount: 0.35,
     });
 
@@ -82,7 +83,6 @@ export default function SectionHeading({
                         ? {
                             opacity: 0,
                             y: 18,
-                            filter: "blur(5px)",
                         }
                         : false
                 }
@@ -91,18 +91,13 @@ export default function SectionHeading({
                         ? {
                             opacity: 1,
                             y: 0,
-                            filter: "blur(0px)",
                         }
                         : {
                             opacity: 0,
                             y: 18,
-                            filter: "blur(5px)",
                         }
                 }
-                transition={{
-                    duration: 0.7,
-                    ease: easeOut,
-                }}
+                transition={TRANSITION.reveal}
             >
                 <HeadingTag
                     className={`
@@ -113,8 +108,8 @@ export default function SectionHeading({
                         leading-[1.05]
                         tracking-[-0.03em]
                         text-foreground
-                        mt-1
-                        md:mt-1.5
+                        mt-0.5
+                        md:mt-1
                         ${headingClassName}
                     `}
                 >
@@ -144,11 +139,10 @@ export default function SectionHeading({
                                 y: 10,
                             }
                     }
-                    transition={{
-                        duration: 0.6,
-                        delay: visible ? 0.15 : 0,
-                        ease: easeOut,
-                    }}
+                transition={{
+                    ...TRANSITION.reveal,
+                    delay: visible ? 0.15 : 0,
+                }}
                     className={`
                         mt-4
                         max-w-lg

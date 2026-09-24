@@ -7,7 +7,7 @@ export default function PillarBlock({
     return (
         <div
             className={`
-                rounded-md
+                rounded-lg
                 border
                 p-4
                 transition-colors

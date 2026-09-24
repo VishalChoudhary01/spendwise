@@ -1,10 +1,7 @@
 "use client";
 
 import {
-    motion,
-    AnimatePresence,
     useMotionValueEvent,
-    useReducedMotion,
     useScroll,
     useTransform,
 } from "motion/react";
@@ -13,9 +10,15 @@ import { useRef, useState } from "react";
 
 import Eyebrow from "../../common/Eyebrow";
 import SectionHeading from "../../common/SectionHeading";
+import Reveal from "../../common/motion/Reveal";
+import Container from "@/app/components/layout/container";
 
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 
+import {
+    MOBILE_QUERY,
+    REDUCED_MOTION_QUERY,
+} from "@/app/constants/mediaQueries";
 
 import HowItWorksTimeline from "./HowItWorksTimeline";
 import HowItWorksStage from "./HowItWorksStage";
@@ -25,8 +28,6 @@ import ProductListState from "./states/ProductListState";
 import ComparisonState from "./states/ComparisonState";
 import BestDealState from "./states/BestDealState";
 import SpendingState from "./states/SpendingState";
-
-const MOBILE_QUERY = "(max-width: 1023px)";
 
 const STAGES = [
     {
@@ -78,7 +79,8 @@ export default function HowItWorks() {
     const sectionRef = useRef(null);
 
     const isMobile = useMediaQuery(MOBILE_QUERY);
-    const shouldReduceMotion = useReducedMotion();
+    const shouldReduceMotion =
+        useMediaQuery(REDUCED_MOTION_QUERY);
 
     const [activeStage, setActiveStage] = useState(0);
 
@@ -174,6 +176,8 @@ export default function HowItWorks() {
             className="
                 relative
                 w-full
+                border-t
+                border-border/70
                 bg-background
                 lg:h-[440vh]
             "
@@ -227,21 +231,7 @@ export default function HowItWorks() {
 
                 {/* Main container */}
 
-                <div
-                    className="
-                        relative
-                        z-10
-                        mx-auto
-                        grid
-                        h-full
-                        max-w-7xl
-                        items-center
-                        gap-16
-                        px-6
-                        lg:grid-cols-[0.9fr_1.1fr]
-                        lg:px-8
-                    "
-                >
+                <Container className="relative z-10 grid h-full items-center gap-16 lg:grid-cols-[0.9fr_1.1fr]">
                     {/* =================================================
                         LEFT CONTENT
                     ================================================= */}
@@ -271,11 +261,11 @@ export default function HowItWorks() {
                             size="md"
                             description="
                                 Add what you need, compare the options,
-                                and let SmartShop help you make the smarter choice.
+                                and let Spendwise help you make the smarter choice.
                             "
                         >
                             From List to{" "}
-                            <span className="text-accent">
+                            <span className="text-accent dark:text-darkBrandTeal">
                                 Better Buy.
                             </span>
                         </SectionHeading>
@@ -315,7 +305,7 @@ export default function HowItWorks() {
                             }
                         />
                     </div>
-                </div>
+                </Container>
             </div>
         </section>
     );
@@ -333,6 +323,8 @@ function StaticHowItWorks() {
                 relative
                 w-full
                 overflow-hidden
+                border-t
+                border-border/70
                 bg-background
             "
         >
@@ -360,18 +352,7 @@ function StaticHowItWorks() {
                 />
             </div>
 
-            <div
-                className="
-                    relative
-                    z-10
-                    mx-auto
-                    w-full
-                    max-w-7xl
-                    px-6
-                    py-20
-                    sm:py-28
-                "
-            >
+            <Container className="relative z-10 py-16 sm:py-24 lg:py-32">
                 {/* =================================================
                     EYEBROW
                 ================================================= */}
@@ -390,11 +371,11 @@ function StaticHowItWorks() {
                     size="md"
                     description="
                         Add what you need, compare the options,
-                        and let SmartShop help you make the smarter choice.
+                        and let Spendwise help you make the smarter choice.
                     "
                 >
                     From List to{" "}
-                    <span className="text-accent">
+                    <span className="text-accent dark:text-darkBrandTeal">
                         Better Buy.
                     </span>
                 </SectionHeading>
@@ -412,37 +393,16 @@ function StaticHowItWorks() {
                                 ];
 
                             return (
-                                <motion.article
-                                    key={item.id}
-                                    initial={{
-                                        opacity: 0,
-                                        y: 18,
-                                    }}
-                                    whileInView={{
-                                        opacity: 1,
-                                        y: 0,
-                                    }}
-                                    viewport={{
-                                        once: true,
-                                        margin: "-60px",
-                                    }}
-                                    transition={{
-                                        duration: 0.55,
-                                        ease: [
-                                            0.22,
-                                            1,
-                                            0.36,
-                                            1,
-                                        ],
-                                    }}
-                                    className="
-                                        overflow-hidden
-                                        rounded-2xl
-                                        border
-                                        border-border
-                                        bg-surface
-                                    "
-                                >
+                                <Reveal key={item.id}>
+                                    <article
+                                        className="
+                                            overflow-hidden
+                                            rounded-lg
+                                            border
+                                            border-border
+                                            bg-surface
+                                        "
+                                    >
                                     {/* Step header */}
 
                                     <div
@@ -525,12 +485,13 @@ function StaticHowItWorks() {
                                     <div className="p-5">
                                         <State />
                                     </div>
-                                </motion.article>
+                                    </article>
+                                </Reveal>
                             );
                         }
                     )}
                 </div>
-            </div>
+            </Container>
         </section>
     );
 }

@@ -2,29 +2,11 @@ import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { FiStar } from "react-icons/fi";
 import { product } from "@/app/constants/productLandingCard";
+import { TRANSITION } from "@/app/lib/motion/transitions";
 import DiscoverState from "./states/DiscoverState";
 import CompareState from "./states/CompareState";
 import BetterPriceState from "./states/BetterPriceState";
 import PayLessState from "./states/PayLessState";
-
-const STATE_TRANSITIONS = [
-    {
-        duration: 0.22,
-        ease: [0.22, 1, 0.36, 1],
-    },
-    {
-        duration: 0.22,
-        ease: [0.22, 1, 0.36, 1],
-    },
-    {
-        duration: 0.32,
-        ease: [0.16, 1, 0.3, 1],
-    },
-    {
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1],
-    },
-];
 
 export default function HeroStoryCard({
     stage = 0,
@@ -38,7 +20,7 @@ export default function HeroStoryCard({
                 className="pointer-events-none absolute -inset-6 rounded-[32px] bg-brandTeal/8 blur-3xl dark:bg-brandTeal/10"
             />
 
-            <div className="relative rounded-xl border border-border bg-surface p-3.5 shadow-sm dark:bg-surface md:p-5">
+            <div className="relative rounded-lg border border-border bg-surface p-3.5 shadow-sm dark:bg-surface md:p-5">
                 {/* Product image */}
                 <div className="flex h-28 items-center justify-center overflow-hidden rounded-lg border border-border bg-white dark:bg-white md:h-40">
                     <Image
@@ -82,8 +64,13 @@ export default function HeroStoryCard({
                     </div>
                 </div>
 
-                {/* Story panel */}
-                <div className="mt-3 h-[148px] overflow-hidden md:h-[180px]">
+                {/*
+                  Story panel — fixed height masks the stage cross-fade.
+                  Must fit the tallest state (Discover: header + 3 source
+                  rows ≈ 175px) or the last rows get cropped — 180px is
+                  the proven desktop value, now shared by mobile.
+                */}
+                <div className="mt-3 h-[180px] overflow-hidden">
                     {isStatic ? (
                         <PayLessState />
                     ) : (
@@ -105,9 +92,7 @@ export default function HeroStoryCard({
                                     opacity: 0,
                                     y: -6,
                                 }}
-                                transition={
-                                    STATE_TRANSITIONS[stage]
-                                }
+                                transition={TRANSITION.normal}
                             >
                                 {stage === 0 && (
                                     <DiscoverState />

@@ -3,6 +3,8 @@
 import { motion } from "motion/react";
 import { useSelector } from "react-redux";
 
+import { EASE } from "@/app/lib/motion/easings";
+
 const PageTransition = ({ children }) => {
     const loaderCompleted = useSelector(
         (state) => state.ui.loaderCompleted
@@ -21,7 +23,7 @@ const PageTransition = ({ children }) => {
             }}
             transition={{
                 duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE.standard,
             }}
         >
             {children}

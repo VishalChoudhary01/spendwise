@@ -16,11 +16,10 @@ import {
     REDUCED_MOTION_QUERY,
 } from "@/app/constants/mediaQueries";
 
-import { TRANSITION } from "@/app/lib/motion/transitions";
-import { EASE } from "@/app/lib/motion/easings";
-
 import Eyebrow from "../../common/Eyebrow";
 import SectionHeading from "../../common/SectionHeading";
+import Reveal from "../../common/motion/Reveal";
+import Container from "@/app/components/layout/container";
 
 import IntegratedUI from "./IntegratedUI";
 import PillarBlock from "./PillarBlock";
@@ -106,9 +105,15 @@ export default function Features() {
     const stageProgress = useTransform(
         scrollYProgress,
         (value) => {
-            if (value >= 0.48) return 3;
-            if (value >= 0.32) return 2;
-            if (value >= 0.16) return 1;
+            /*
+                The UI card finishes fading in at ~0.14, so the
+                LIST state must hold well past that point to be
+                readable. Even 0.16-sized windows per state,
+                with the final insight state lingering.
+            */
+            if (value >= 0.62) return 3;
+            if (value >= 0.46) return 2;
+            if (value >= 0.30) return 1;
 
             return 0;
         }
@@ -201,6 +206,8 @@ export default function Features() {
             className={`
                 relative
                 w-full
+                border-t
+                border-border/70
                 bg-background
                 ${isStatic
                     ? ""
@@ -313,9 +320,9 @@ function FeaturesSectionHeading({
                 "
             >
                 Everything you need
-                <br />
+                <br className="hidden sm:inline" />
                 to shop{" "}
-                <span className="text-accent">
+                <span className="text-accent dark:text-darkBrandTeal">
                     smarter.
                 </span>
             </SectionHeading>
@@ -357,18 +364,7 @@ function FeaturesSectionHeading({
 
 function StaticFeatures({ pillars }) {
     return (
-        <div
-            className="
-                relative
-                z-10
-                mx-auto
-                w-full
-                max-w-7xl
-                px-6
-                py-16
-                sm:py-28
-            "
-        >
+        <Container className="relative z-10 py-16 sm:py-24 lg:py-32">
             {/* ====================================================
                 HEADING
             ==================================================== */}
@@ -392,29 +388,12 @@ function StaticFeatures({ pillars }) {
                     PRODUCT
                 ------------------------------------------------ */}
 
-                <motion.div
-                    initial={{
-                        opacity: 0,
-                        y: 16,
-                    }}
-                    whileInView={{
-                        opacity: 1,
-                        y: 0,
-                    }}
-                    viewport={{
-                        once: true,
-                        margin: "-40px",
-                    }}
-                    transition={{
-                        ...TRANSITION.reveal,
-                        delay: 0.08,
-                    }}
-                >
+                <Reveal delay={0.08}>
                     <IntegratedUI
                         stage={3}
                         isStatic
                     />
-                </motion.div>
+                </Reveal>
 
                 {/* ------------------------------------------------
                     PILLARS
@@ -426,45 +405,26 @@ function StaticFeatures({ pillars }) {
                         gap-3
                         sm:grid-cols-2
                     "
-                >
-                    {pillars.map(
-                        (pillar, index) => (
-                            <motion.div
-                                key={
-                                    pillar.id
-                                }
-                                initial={{
-                                    opacity: 0,
-                                    y: 12,
-                                }}
-                                whileInView={{
-                                    opacity: 1,
-                                    y: 0,
-                                }}
-                                viewport={{
-                                    once: true,
-                                    margin: "-40px",
-                                }}
-                                transition={{
-                                    ...TRANSITION.smooth,
-                                    delay:
+                >                        {pillars.map(
+                            (pillar, index) => (
+                                <Reveal
+                                    key={pillar.id}
+                                    delay={
                                         0.12 +
-                                        (index %
-                                            2) *
-                                        0.08,
-                                }}
-                            >
-                                <PillarBlock
-                                    pillar={
-                                        pillar
+                                        (index % 2) * 0.08
                                     }
-                                />
-                            </motion.div>
-                        )
-                    )}
+                                >
+                                    <PillarBlock
+                                        pillar={
+                                            pillar
+                                        }
+                                    />
+                                </Reveal>
+                            )
+                        )}
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }
 
@@ -483,22 +443,7 @@ function DesktopFeatures({
     pillarOpacities,
 }) {
     return (
-        <div
-            className="
-                relative
-                z-10
-                mx-auto
-                grid
-                w-full
-                max-w-7xl
-                items-center
-                gap-12
-                px-6
-                lg:h-full
-                lg:grid-cols-[0.95fr_1.05fr]
-                lg:gap-16
-            "
-        >
+        <Container className="relative z-10 grid items-center gap-12 lg:h-full lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
             {/* ====================================================
                 LEFT
             ==================================================== */}
@@ -572,6 +517,6 @@ function DesktopFeatures({
                     stage={stage}
                 />
             </motion.div>
-        </div>
+        </Container>
     );
 }

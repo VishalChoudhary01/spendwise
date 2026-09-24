@@ -6,6 +6,7 @@ import Eyebrow from "../../common/Eyebrow";
 import SectionHeading from "../../common/SectionHeading";
 
 import FAQItem from "./FAQItem";
+import Container from "@/app/components/layout/container";
 
 /* ================================================================
    FAQ DATA
@@ -13,31 +14,31 @@ import FAQItem from "./FAQItem";
 
 const QUESTIONS = [
     {
-        q: "How does SmartShop compare prices?",
-        a: "SmartShop compares supported price sources for a product and shows the available options together so you can see the difference before deciding.",
+        q: "How does Spendwise compare prices?",
+        a: "Spendwise compares supported price sources for a product and shows the available options together so you can see the difference before deciding.",
     },
     {
         q: "Where do the prices come from?",
-        a: "Prices come from the supported sources SmartShop can actively check — such as Amazon and Flipkart — and each one is shown with its source name.",
+        a: "Prices come from the supported sources Spendwise can actively check — such as Amazon and Flipkart — and each one is shown with its source name.",
     },
     {
         q: "How often are prices updated?",
-        a: "Prices are updated based on the connected source and the latest information available to SmartShop.",
+        a: "Prices are updated based on the connected source and the latest information available to Spendwise.",
     },
     {
-        q: "Do I have to buy through SmartShop?",
-        a: "No. SmartShop shows you the better available option it found; where you buy is up to you.",
+        q: "Do I have to buy through Spendwise?",
+        a: "No. Spendwise shows you the better available option it found; where you buy is up to you.",
     },
     {
         q: "Can I create multiple shopping lists?",
         a: "Yes. You can create as many shopping lists as you need — groceries, gifts, travel essentials, and more.",
     },
     {
-        q: "How does SmartShop calculate savings?",
+        q: "How does Spendwise calculate savings?",
         a: "Savings are the difference between the highest supported price found and the best available option.",
     },
     {
-        q: "Is SmartShop free?",
+        q: "Is Spendwise free?",
         a: "Yes. You can create lists, add products, and compare supported prices without a credit card.",
     },
 ];
@@ -67,30 +68,21 @@ export default function FAQ() {
             className="
                 relative
                 w-full
+                border-t
+                border-border/70
                 bg-background
-                px-6
                 py-16
                 dark:bg-darkBackground
                 sm:py-24
                 lg:py-32
             "
         >
-            <div
-                className="
-                    mx-auto
-                    grid
-                    w-full
-                    max-w-7xl
-                    gap-10
-                    lg:grid-cols-[0.8fr_1.2fr]
-                    lg:gap-16
-                "
-            >
+            <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
                 {/* =================================================
                     LEFT — SECTION INTRO
                 ================================================= */}
 
-                <div className="max-w-xl">
+                <div className="max-w-2xl">
                     {/* ---------------------------------------------
                         EYEBROW
                     --------------------------------------------- */}
@@ -107,14 +99,14 @@ export default function FAQ() {
                     <SectionHeading
                         align="left"
                         size="md"
-                        maxWidth="max-w-xl"
+                        maxWidth="max-w-2xl"
                         description="
                             Everything you need to know before you
                             start shopping smarter.
                         "
                     >
                         Questions,{" "}
-                        <span className="text-accent">
+                        <span className="text-accent dark:text-darkBrandTeal">
                             answered.
                         </span>
                     </SectionHeading>
@@ -158,7 +150,7 @@ export default function FAQ() {
                         )}
                     </div>
                 </div>
-            </div>
+            </Container>
         </section>
     );
 }

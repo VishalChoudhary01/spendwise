@@ -3,7 +3,7 @@
 import { animate } from "motion/react";
 import { useEffect, useRef } from "react";
 
-const EASE_OUT = [0.22, 1, 0.36, 1];
+import { EASE } from "@/app/lib/motion/easings";
 
 export default function CountUp({
     to,
@@ -18,7 +18,7 @@ export default function CountUp({
 
         const controls = animate(0, to, {
             duration: 0.8,
-            ease: EASE_OUT,
+            ease: EASE.standard,
 
             onUpdate: (latest) => {
                 if (!valueRef.current) return;

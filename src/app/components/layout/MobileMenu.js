@@ -2,10 +2,12 @@
 
 import React from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { TRANSITION } from "@/app/lib/motion/transitions";
 import Link from "next/link";
 import CTAButton from "../common/CTAButton";
 import { navLinks } from "@/app/constants";
 import ThemeToggle from "../ui/ThemeToggle";
+import Container from "./container";
 
 const MobileMenu = ({ mobileMenuOpen, activeSection, onClose }) => {
     return (
@@ -24,13 +26,10 @@ const MobileMenu = ({ mobileMenuOpen, activeSection, onClose }) => {
                         height: 0,
                         opacity: 0,
                     }}
-                    transition={{
-                        duration: 0.3,
-                        ease: "easeInOut",
-                    }}
-                    className="md:hidden fixed top-[4rem] inset-x-0 z-40 overflow-hidden bg-navbarBG dark:bg-darkNavbarBG backdrop-blur-lg border-b border-navbarBorder dark:border-darkNavbarBorder"
+                    transition={TRANSITION.normal}
+                    className="lg:hidden fixed top-[4rem] md:top-[5rem] inset-x-0 z-40 overflow-hidden bg-navbarBG dark:bg-darkNavbarBG backdrop-blur-lg border-b border-navbarBorder dark:border-darkNavbarBorder"
                 >
-                    <div className="max-w-7xl mx-auto px-6 py-6">
+                    <Container className="py-6">
                         {/* Navigation Links */}
                         <nav className="flex flex-col gap-2">
                             {navLinks.map((link) => {
@@ -41,11 +40,11 @@ const MobileMenu = ({ mobileMenuOpen, activeSection, onClose }) => {
                                     <motion.a
                                         initial={{ x: -10, opacity: 0 }}
                                         animate={{ x: 0, opacity: 1 }}
-                                        transition={{ duration: 0.3 }}
+                                        transition={TRANSITION.normal}
                                         key={link.href}
                                         href={link.href}
                                         onClick={onClose}
-                                        className={`rounded-xl px-4 py-2 transition-colors text-[0.88rem] font-medium ${isActive
+                                        className={`inline-flex min-h-11 items-center rounded-xl px-4 py-2 transition-colors text-[0.88rem] font-medium ${isActive
                                                 ? "bg-primarySoft text-primary dark:bg-darkPrimarySoft dark:text-darkAccent"
                                                 : "text-textSecondary dark:text-darkTextSecondary"
                                             }`}
@@ -66,7 +65,7 @@ const MobileMenu = ({ mobileMenuOpen, activeSection, onClose }) => {
                             </Link>
                             <ThemeToggle />
                         </div>
-                    </div>
+                    </Container>
                 </motion.div>
             )}
         </AnimatePresence>

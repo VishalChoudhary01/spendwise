@@ -76,7 +76,7 @@ export default function Header() {
             <FiShoppingBag className="w-5 h-5" />
           </div>
           <span className="text-body-lg font-bold text-text-primary tracking-tight leading-none hidden sm:block">
-            SmartShop
+            Spendwise
           </span>
         </Link>
 

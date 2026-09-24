@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import SourceIcon from "@/app/components/common/SourceIcon/SourceIcon";
 
 import { sources } from "@/app/constants/productLandingCard"
+import { TRANSITION } from "@/app/lib/motion/transitions"
 
 
 const rowVariants = {
@@ -14,10 +15,7 @@ const rowVariants = {
     show: {
         opacity: 1,
         x: 0,
-        transition: {
-            duration: 0.3,
-            ease: [0.22, 1, 0.36, 1],
-        },
+        transition: TRANSITION.normal,
     },
 };
 

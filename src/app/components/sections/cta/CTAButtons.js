@@ -1,105 +1,69 @@
 "use client";
 
-import { FiArrowRight } from "react-icons/fi";
+import { motion } from "motion/react";
+import PrimaryLinkButton from "../../common/button/PrimaryLinkButton";
+import SecondaryLinkButton from "../../common/button/SecondaryLinkButton";
+
+const BUTTON_EASE = [0.16, 1, 0.3, 1];
+
+const buttonVariants = {
+    hidden: {
+        opacity: 0,
+        y: 18,
+        scale: 0.96,
+    },
+
+    visible: (delay = 0) => ({
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            delay,
+            duration: 0.6,
+            ease: BUTTON_EASE,
+        },
+    }),
+};
 
 export default function CTAButtons() {
     return (
-        <div
+        <motion.div
             className="
-                mt-8
+                mt-7
                 flex
                 flex-wrap
                 items-center
                 justify-center
                 gap-3
+                sm:mt-8
                 sm:gap-4
             "
+            initial="hidden"
+            whileInView="visible"
+            viewport={{
+                once: true,
+                amount: 0.35,
+            }}
         >
-            {/* =================================================
-                PRIMARY CTA
-            ================================================= */}
-
-            <a
-                href="#pricing"
-                className="
-                    group
-                    inline-flex
-                    h-12
-                    items-center
-                    gap-2
-                    rounded-full
-                    bg-action
-                    px-5
-                    text-sm
-                    font-semibold
-                    text-white
-                    transition-all
-                    duration-150
-                    hover:bg-action-hover
-                    active:scale-[0.98]
-                    focus-visible:outline
-                    focus-visible:outline-2
-                    focus-visible:outline-offset-2
-                    focus-visible:outline-accent
-                    sm:px-6
-                "
+            {/* Primary CTA */}
+            <motion.div
+                custom={0}
+                variants={buttonVariants}
             >
-                Start Free
+                <PrimaryLinkButton href="/dashboard">
+                    Start Free
+                </PrimaryLinkButton>
+            </motion.div>
 
-                <FiArrowRight
-                    aria-hidden="true"
-                    className="
-                        transition-transform
-                        duration-150
-                        group-hover:translate-x-0.5
-                    "
-                />
-            </a>
-
-            {/* =================================================
-                SECONDARY CTA
-            ================================================= */}
-
-            <a
-                href="#how-it-works"
-                className="
-                    group
-                    inline-flex
-                    h-12
-                    items-center
-                    gap-2
-                    rounded-full
-                    border
-                    border-border-strong
-                    bg-transparent
-                    px-5
-                    text-sm
-                    font-semibold
-                    text-foreground
-                    transition-all
-                    duration-150
-                    hover:border-accent
-                    hover:text-accent
-                    active:scale-[0.98]
-                    focus-visible:outline
-                    focus-visible:outline-2
-                    focus-visible:outline-offset-2
-                    focus-visible:outline-accent
-                    sm:px-6
-                "
+            {/* Secondary CTA */}
+            <motion.div
+                custom={0.08}
+                variants={buttonVariants}
             >
-                See How It Works
-
-                <FiArrowRight
-                    size={16}
-                    aria-hidden="true"
-                    className="
-                        transition-transform
-                        duration-150
-                        group-hover:translate-x-0.5
-                    "
-                />
-            </a>
-        </div>
+                <SecondaryLinkButton href="#how-it-works">
+                    See How It Works
+                </SecondaryLinkButton>
+            </motion.div>
+        </motion.div>
     );
 }

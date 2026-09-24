@@ -1,5 +1,3 @@
-import { motion } from "motion/react";
-
 import { stages } from "@/app/constants/productLandingCard";
 
 export default function HeroStoryProgress({ stage }) {
@@ -21,24 +19,11 @@ export default function HeroStoryProgress({ stage }) {
                 </span>
 
 
-                <motion.span
-                    initial={{
-                        opacity: 0,
-                        scale: 0.4,
-                        filter: "blur(40px)",
-                    }}
-                    animate={{
-                        opacity: 1,
-                        scale: 1,
-                        filter: "blur(0px)",
-                    }}
-                    transition={{
-                        duration: 0.8,
-                    }}
+                <span
                     className="text-[10px] font-medium text-foreground-muted dark:text-white/70"
                 >
                     {stages[stage].label}
-                </motion.span>
+                </span>
             </div>
 
             <div className="mt-1.5 flex items-center gap-1 md:mt-2 md:gap-1.5">

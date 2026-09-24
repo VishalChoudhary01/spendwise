@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useRef, useState, } from "react";
+import { useEffect, useState, } from "react";
 import { useMediaQuery } from "@/app/hooks/useMediaQuery";
 import dynamic from "next/dynamic";
 const HeroBackgroundVideo = dynamic(
@@ -8,6 +8,7 @@ const HeroBackgroundVideo = dynamic(
 );
 import HeroStoryCard from "./HeroStoryCard";
 import HeroStoryProgress from "./HeroStoryProgress";
+import Container from "@/app/components/layout/container";
 
 import { stages } from "@/app/constants/productLandingCard";
 import { MOBILE_QUERY, REDUCED_MOTION_QUERY, } from "@/app/constants/mediaQueries";
@@ -28,34 +29,30 @@ export default function HeroProductStory({ children }) {
     const [hovering, setHovering] =
         useState(false);
 
-    const timerRef = useRef(null);
-
     /* ---------------------------------------------
-       Auto-cycle
-    --------------------------------------------- */
+       Story progression
 
-    const advance = useCallback(() => {
-        setStage(  (prev) => (prev + 1) % stages.length);
-    }, []);
+       Plays the four stages once, then settles on the
+       final state — the hero must not loop forever (§22, §46).
+
+       Hovering pauses progress; leaving resumes it.
+    --------------------------------------------- */
 
     useEffect(() => {
         if (isStatic || hovering) {
             return;
         }
 
-        timerRef.current = setInterval(
-            advance,
-            STATE_HOLD_MS
-        );
+        if (stage >= stages.length - 1) {
+            return;
+        }
 
-        return () => {
-            clearInterval(timerRef.current);
-        };
-    }, [
-        isStatic,
-        hovering,
-        advance,
-    ]);
+        const timer = setTimeout(() => {
+            setStage((prev) => prev + 1);
+        }, STATE_HOLD_MS);
+
+        return () => clearTimeout(timer);
+    }, [isStatic, hovering, stage]);
 
     /* ---------------------------------------------
        Hover pause
@@ -95,7 +92,7 @@ export default function HeroProductStory({ children }) {
             </div>
 
             {/* Hero content — flows naturally, no fixed height */}
-            <div className="relative z-10 mx-auto grid min-h-dvh w-full max-w-7xl items-center gap-6 px-6 pb-16 pt-20 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-0">
+            <Container className="relative z-10 grid min-h-dvh items-center gap-6 pb-16 pt-20 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-0">
 
                 {/* Left */}
                 <div>
@@ -121,7 +118,7 @@ export default function HeroProductStory({ children }) {
                         />
                     )}
                 </div>
-            </div>
+            </Container>
         </section>
     );
 }

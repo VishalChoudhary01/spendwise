@@ -11,6 +11,8 @@ import ComparisonState from "./states/ComparisonState";
 import BestDealState from "./states/BestDealState";
 import SpendingState from "./states/SpendingState";
 
+import { TRANSITION } from "@/app/lib/motion/transitions";
+
 const STAGES = [
     {
         index: "01",
@@ -42,8 +44,6 @@ const STATES = [
     SpendingState,
 ];
 
-const EASE = [0.22, 1, 0.36, 1];
-
 export default function HowItWorksStage({
     activeStage,
 }) {
@@ -59,9 +59,8 @@ export default function HowItWorksStage({
         <div className="w-full max-w-[470px]">
             <div
                 className="
-                    h-[420px]
                     overflow-hidden
-                    rounded-2xl
+                    rounded-md
                     border
                     border-border
                     bg-surface
@@ -75,13 +74,15 @@ export default function HowItWorksStage({
                 <div
                     className="
                         flex
-                        h-[60px]
+                        min-h-[56px]
                         shrink-0
                         items-center
                         justify-between
+                        gap-4
                         border-b
                         border-border
-                        px-6
+                        px-5
+                        sm:px-6
                     "
                 >
                     <span
@@ -101,6 +102,7 @@ export default function HowItWorksStage({
                             text-sm
                             font-semibold
                             text-accent
+                            text-right
                         "
                     >
                         {current.title}
@@ -110,14 +112,16 @@ export default function HowItWorksStage({
                 {/* =================================================
                     CARD BODY
 
-                    Fixed height prevents different states from
-                    changing the card dimensions.
+                    No fixed 360px height.
+                    The visual is intentionally compact now.
                 ================================================= */}
 
                 <div
                     className="
-                        h-[360px]
-                        p-6
+                        min-h-[250px]
+                        p-5
+                        sm:min-h-[270px]
+                        sm:p-6
                     "
                 >
                     <AnimatePresence
@@ -128,27 +132,21 @@ export default function HowItWorksStage({
                             key={activeStage}
                             initial={{
                                 opacity: 0,
-                                y: 12,
-                                filter:
-                                    "blur(4px)",
+                                y: 8,
                             }}
                             animate={{
                                 opacity: 1,
                                 y: 0,
-                                filter:
-                                    "blur(0px)",
                             }}
                             exit={{
                                 opacity: 0,
-                                y: -8,
-                                filter:
-                                    "blur(3px)",
+                                y: -6,
                             }}
                             transition={{
-                                duration: 0.4,
-                                ease: EASE,
+                                ...TRANSITION.normal,
+                                duration: 0.3,
                             }}
-                            className="h-full"
+                            className="w-full"
                         >
                             <State />
                         </motion.div>

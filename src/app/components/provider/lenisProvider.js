@@ -13,7 +13,7 @@ const LenisProvider = ({ children }) => {
             // dashboard/features overflow) natively, then take over the page
             // at their scroll boundaries.
             allowNestedScroll: true,
-            // Smooth-scroll anchor navigation (#features, #compare, ...) with
+            // Smooth-scroll anchor navigation (#features, #how-it-works, ...) with
             // the same eased motion as the page itself.
             anchors: true,
         });

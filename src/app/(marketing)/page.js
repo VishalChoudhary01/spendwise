@@ -1,18 +1,20 @@
-import { HeroSection, ProductComparisonSection, ShoppingListsShowcaseSection,CTA,Features,HowItWorks,Pricing,TrustProof ,FAQ} from "../components/sections";
+import { HeroSection, CTA, Features, HowItWorks, Pricing, TrustProof, FAQ,ExpenseTracking } from "../components/sections";
 
+
+
+// import ExpenseTracking from "../components/sections/ExpenseTracking/ExpenseTracking";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
-      <ProductComparisonSection />
-      <ShoppingListsShowcaseSection />
-      <Features/>
-      <HowItWorks/>
-      <TrustProof/>
-      <Pricing/>
-      <FAQ/>
-      <CTA/>
+      <ExpenseTracking/>
+      <Features />
+      <HowItWorks />
+      <TrustProof />
+      <Pricing />
+      <FAQ />
+      <CTA />
     </>
   );
 }

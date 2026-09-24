@@ -109,7 +109,7 @@ export default function ProductComparisonSection() {
                                 align="left"
                                 size="sm"
                                 isVisible={stage >=0 }
-                                description="SmartShop checks multiple stores, compares the real prices, and surfaces the option that saves you the most."
+                                description="Spendwise checks multiple stores, compares the real prices, and surfaces the option that saves you the most."
                                 headingClassName="!mt-0"
                                 descriptionClassName="!mt-2 sm:!mt-4 text-base sm:text-lg leading-6 sm:leading-8 max-w-md"
                             >

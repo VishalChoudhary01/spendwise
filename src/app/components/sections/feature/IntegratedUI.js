@@ -249,7 +249,6 @@ export default function IntegratedUI({
 
             <div
                 className="
-                    min-h-[148px]
                     border-t
                     border-border/70
                     bg-surface-muted/50

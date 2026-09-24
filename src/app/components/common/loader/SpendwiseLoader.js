@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loaderFinished } from "@/app/features/uiSlice";
+import { EASE } from "@/app/lib/motion/easings";
 
 const SpendwiseLoader = () => {
     const dispatch = useDispatch();
@@ -143,11 +144,10 @@ const SpendwiseLoader = () => {
                         transition={{
                             opacity: {
                                 duration: 0.4,
-                            },
-                            scale: {
-                                duration: 0.7,
-                                ease: [0.22, 1, 0.36, 1],
-                            },
+                            },                                    scale: {
+                                        duration: 0.7,
+                                        ease: EASE.standard,
+                                    },
                         }}
                     >
                         <div className="flex items-center gap-0.5">
