@@ -18,7 +18,7 @@ import ItemForm from "../../components/forms/ItemForm";
 import ItemCard from "../../components/layout/ItemCard";
 
 const formatINR = (value) =>
-    value.toLocaleString(undefined, {
+    value.toLocaleString("en-IN", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
     });

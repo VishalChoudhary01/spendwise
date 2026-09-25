@@ -8,13 +8,11 @@ import {
 import {
     FiCheck,
     FiCircle,
-    FiMapPin,
     FiShoppingBag,
     FiStar,
 } from "react-icons/fi";
 
-import { GrAmazon } from "react-icons/gr";
-import { TbBrandFlipboard } from "react-icons/tb";
+import SourceIcon from "@/app/components/common/SourceIcon/SourceIcon";
 
 import { TRANSITION } from "@/app/lib/motion/transitions";
 
@@ -55,19 +53,16 @@ const COFFEE_SOURCES = [
     {
         id: "amazon",
         name: "Amazon",
-        icon: GrAmazon,
         price: 459,
     },
     {
         id: "flipkart",
         name: "Flipkart",
-        icon: TbBrandFlipboard,
         price: 427,
     },
     {
         id: "supported",
         name: "Supported store",
-        icon: FiMapPin,
         price: 410,
         winner: true,
     },
@@ -394,8 +389,6 @@ function CompareStage() {
             <div className="mt-2 space-y-1.5">
                 {COFFEE_SOURCES.map(
                     (source) => {
-                        const Icon = source.icon;
-
                         return (
                             <div
                                 key={source.id}
@@ -423,7 +416,8 @@ function CompareStage() {
                                         text-foreground-secondary
                                     "
                                 >
-                                    <Icon
+                                    <SourceIcon
+                                        source={source}
                                         className="
                                             text-sm
                                             text-foreground-muted

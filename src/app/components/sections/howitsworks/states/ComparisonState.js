@@ -1,29 +1,24 @@
 "use client";
 
-import { FiMapPin } from "react-icons/fi";
-import { GrAmazon } from "react-icons/gr";
-import { TbBrandFlipboard } from "react-icons/tb";
+import SourceIcon from "@/app/components/common/SourceIcon/SourceIcon";
 
 const sources = [
     {
         id: "amazon",
         name: "Amazon",
         price: 129999,
-        icon: GrAmazon,
         accent: "text-[#FF9900]",
     },
     {
         id: "flipkart",
         name: "Flipkart",
         price: 127499,
-        icon: TbBrandFlipboard,
         accent: "text-[#2874F0]",
     },
     {
         id: "supported",
         name: "Supported source",
         price: 124999,
-        icon: FiMapPin,
         accent: "text-accent",
     },
 ];
@@ -37,8 +32,6 @@ export default function ComparisonState() {
 
             <div className="mt-3 space-y-1.5">
                 {sources.map((source) => {
-                    const Icon = source.icon;
-
                     return (
                         <div
                             key={source.id}
@@ -64,7 +57,8 @@ export default function ComparisonState() {
                                     text-foreground-secondary
                                 "
                             >
-                                <Icon
+                                <SourceIcon
+                                    source={source}
                                     className={`
                                         text-base
                                         ${source.accent}

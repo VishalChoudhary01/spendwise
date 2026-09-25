@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { FiX } from "react-icons/fi";
 
@@ -11,6 +12,12 @@ export default function Modal({
   children,
   className = "",
 }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -22,7 +29,13 @@ export default function Modal({
     };
   }, [isOpen]);
 
-  return (
+  // Portaled to <body>: page containers can carry inline `filter`/
+  // `transform` from Motion entry animations, which would otherwise
+  // become the containing block for `position: fixed` and clip the
+  // backdrop to the container instead of the full viewport.
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6">
@@ -62,6 +75,7 @@ export default function Modal({
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
