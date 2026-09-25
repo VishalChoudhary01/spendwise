@@ -48,6 +48,18 @@ export default function Select({
 
   const current = options[currentIndex];
 
+  /*
+   * Optional per-option brand badge. Callers may pass any renderable
+   * node (e.g. <SourceIcon/>); options without one render exactly as
+   * they did before this prop existed.
+   */
+  const renderOptionIcon = (option) =>
+    option?.icon ? (
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center">
+        {option.icon}
+      </span>
+    ) : null;
+
   /* =========================================================
      CLIENT MOUNT
   ========================================================== */
@@ -376,8 +388,14 @@ export default function Select({
         aria-label={ariaLabel}
         className="flex h-10 min-w-0 items-center gap-2 rounded border border-border-subtle bg-surface-muted px-3 pr-2.5 text-body-sm font-medium text-text-primary transition-colors hover:border-border-strong focus-visible:border-border-focus focus-visible:outline-none cursor-pointer"
       >
-        <span className="min-w-0 truncate">
-          {current?.label ?? ariaLabel}
+        {/* Icon + label grouped on the left so the label never
+            floats to the middle of the trigger. */}
+        <span className="flex min-w-0 items-center gap-2">
+          {renderOptionIcon(current)}
+
+          <span className="min-w-0 truncate">
+            {current?.label ?? ariaLabel}
+          </span>
         </span>
 
         <motion.span
@@ -500,10 +518,16 @@ export default function Select({
                               : "font-medium text-text-primary"
                             }`}
                         >
-                          <span className="min-w-0 truncate">
-                            {
-                              option.label
-                            }
+                          {/* Icon + label grouped on the left, check
+                              mark stays on the right. */}
+                          <span className="flex min-w-0 items-center gap-2.5">
+                            {renderOptionIcon(option)}
+
+                            <span className="min-w-0 truncate">
+                              {
+                                option.label
+                              }
+                            </span>
                           </span>
 
                           {selected && (

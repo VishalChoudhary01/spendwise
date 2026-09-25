@@ -2,7 +2,6 @@ import { HeroSection, CTA, Features, HowItWorks, Pricing, TrustProof, FAQ,Expens
 
 
 
-// import ExpenseTracking from "../components/sections/ExpenseTracking/ExpenseTracking";
 
 export default function Home() {
   return (

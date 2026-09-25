@@ -12,6 +12,7 @@ import {
 
 import { getCheapestSource, getItemTotal } from "../../utils/priceEngine";
 import NumberRoll from "@/app/components/common/NumberRoll";
+import SourceIcon from "@/app/components/common/SourceIcon/SourceIcon";
 
 const UNIT_LABELS = {
   piece: (qty) => (qty === 1 ? "piece" : "pieces"),
@@ -172,8 +173,16 @@ export default function ItemCard({
                     Best available:
                   </span>
 
-                  <span className="font-medium text-text-secondary">
-                    {cheapest.store}
+                  <span className="flex min-w-0 items-center gap-1.5 font-medium text-text-secondary">
+                    <SourceIcon
+                      source={cheapest}
+                      sizeClass="h-4 w-4"
+                      chip
+                    />
+
+                    <span className="truncate">
+                      {cheapest.store}
+                    </span>
                   </span>
                 </>
               )}
@@ -371,6 +380,12 @@ export default function ItemCard({
                             : "text-text-muted"
                           }`}
                       >
+                        <SourceIcon
+                          source={source}
+                          sizeClass="h-4 w-4"
+                          chip
+                        />
+
                         <span className="truncate">
                           {source.store}
                         </span>

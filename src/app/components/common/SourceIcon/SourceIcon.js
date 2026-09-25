@@ -26,8 +26,22 @@ function resolveBadgeKey(source) {
 export default function SourceIcon({
     source,
     className = "",
+    /**
+     * Optional explicit box size (e.g. "h-4 w-4"). When omitted the
+     * image badge keeps its original 20px box and icon components stay
+     * sized purely by the caller's `className`, exactly as before.
+     */
+    sizeClass,
+    /**
+     * Draws a light chip behind image badges so dark brand logos
+     * (Myntra, Zepto…) stay visible on dark surfaces. Icon badges
+     * (Amazon) and the fallback are unaffected.
+     */
+    chip = false,
 }) {
     const [imageFailed, setImageFailed] = useState(false);
+
+    const size = sizeClass || "";
 
     const key = resolveBadgeKey(source);
     const config = key ? SOURCE_ICONS[key] : null;
@@ -37,13 +51,31 @@ export default function SourceIcon({
     if (!config || imageFailed) {
         return (
             <Store
-                className={`shrink-0 ${className}`}
+                className={`shrink-0 ${size} ${className}`.trim()}
                 aria-hidden="true"
             />
         );
     }
 
     if (config.type === "image" && config.src) {
+        if (chip) {
+            return (
+                <span
+                    className={`inline-flex ${sizeClass || "h-5 w-5"} shrink-0 items-center justify-center rounded-[4px] bg-white p-[2px]`}
+                    title={source.name || source.store || "Store"}
+                >
+                    <Image
+                        src={config.src}
+                        alt={source.name || source.store || "Store"}
+                        width={20}
+                        height={20}
+                        onError={() => setImageFailed(true)}
+                        className="h-full w-full object-contain"
+                    />
+                </span>
+            );
+        }
+
         return (
             <Image
                 src={config.src}
@@ -51,7 +83,7 @@ export default function SourceIcon({
                 width={20}
                 height={20}
                 onError={() => setImageFailed(true)}
-                className={`h-5 w-5 shrink-0 object-contain ${className}`}
+                className={`${sizeClass || "h-5 w-5"} shrink-0 object-contain ${className}`}
             />
         );
     }
@@ -60,7 +92,7 @@ export default function SourceIcon({
 
     return (
         <Icon
-            className={`shrink-0 ${className}`}
+            className={`shrink-0 ${size} ${className}`.trim()}
             aria-hidden="true"
         />
     );

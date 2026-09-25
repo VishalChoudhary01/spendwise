@@ -18,6 +18,7 @@ import ConfirmDialog from "../ui/ConfirmDialog";
 import { UNIT_OPTIONS, COMMON_STORES } from "../../constants";
 import { detectPlatform } from "../../../lib/product/detectPlatform";
 import { PRODUCT_PLATFORMS, getPlatformByStoreName } from "../../../constants/platforms";
+import SourceIcon from "@/app/components/common/SourceIcon/SourceIcon";
 
 /** Client-side resolve timeout — server fetch times out at 10s. */
 const RESOLVE_TIMEOUT_MS = 15000;
@@ -698,7 +699,20 @@ export default function ItemForm({
                             handleSourceChange(index, "store", val);
                           }}
                           ariaLabel="Store"
-                          options={COMMON_STORES.map((s) => ({ value: s, label: s }))}
+                          options={COMMON_STORES.map((s) => ({
+                            value: s,
+                            label: s,
+                            // Platform brand badge (same registry as the
+                            // landing page) — unknown/legacy names render
+                            // SourceIcon's generic fallback.
+                            icon: (
+                              <SourceIcon
+                                source={{ store: s }}
+                                sizeClass="h-4 w-4"
+                                chip
+                              />
+                            ),
+                          }))}
                         />
                       ) : (
                         /* Legacy/custom store saved before the canonical
@@ -784,6 +798,11 @@ export default function ItemForm({
             <div className="flex items-center gap-2 px-3 py-2.5 bg-success/5 border border-success/15 rounded">
               <FiCheck className="w-4 h-4 text-success shrink-0" />
               <span className="text-label-sm font-semibold text-success">Best available:</span>
+              <SourceIcon
+                source={best}
+                sizeClass="h-4 w-4"
+                chip
+              />
               <span className="text-label-sm font-bold text-text-primary">{best.store}</span>
               <span className="text-label-sm text-text-muted">·</span>
               <span className="text-label-sm font-bold text-text-primary tabular-nums">
